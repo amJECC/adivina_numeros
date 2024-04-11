@@ -1,16 +1,8 @@
 # numero_adivina
 
-A new Flutter project.
+Descripción General del Juego:
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+El corazón de esta aplicación es un juego basado en el clásico desafío de "adivinar el número",
+pero elevado a nuevos niveles de interactividad y complejidad. Los usuarios serán desafiados a
+adivinar un número secreto dentro de un rango específico, con el número de intentos y la
+dificultad ajustándose según el nivel seleccionado por el usuario.
