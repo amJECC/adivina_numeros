@@ -37,6 +37,11 @@ class _numerosPageState extends State<numerosPage> {
 
   bool showError = false;
 
+  List<int> numerosMenores = [];
+  List<int> numerosMayores = [];
+
+  String rutaImage = "assets/img2.png";
+
   _numerosPageState({required this.limite, required this.intentos});
 
   @override
@@ -68,7 +73,7 @@ class _numerosPageState extends State<numerosPage> {
                   Text(" $numeroAleatorio",textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 30,
                     fontWeight: FontWeight.bold,
-                  color: igual ? Colors.blueAccent : Colors.pink))
+                  color: igual ? Colors.teal : Colors.pink))
                 : Text("?",textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 30,
                     fontWeight: FontWeight.bold,),),
@@ -80,6 +85,12 @@ class _numerosPageState extends State<numerosPage> {
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25,
               fontWeight: FontWeight.bold,),),
+
+            numerosIntroducidos < intentos ? Text("Intentos restantes : ${intentos - numerosIntroducidos}",textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 15,
+                fontWeight: FontWeight.w900,),) :  Text("Intentos restantes : 0",textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 15,
+                fontWeight: FontWeight.w900,),),
 
             Center(
               child: Padding(
@@ -151,35 +162,79 @@ class _numerosPageState extends State<numerosPage> {
                           ),
                         ),
                       ),
+
+                    if(!showError)
+                    Image.asset(rutaImage,height: 80,)
                   ],
                 ),
               ),
             ),
-            Container(
-              height: 200,
-              width: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        title: Text('${index + 1}'),
-                      );
-                    },
-                  ),
-                  ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        title: Text('${index + 1}'),
-                      );
-                    },
-                  ),
-                ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0,vertical: 20),
+              child: Container(
+                height: 200,
+                width: 200,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      height: 200,
+                      width: 100,
+                      child: Column(
+                        children: [
+                          Text("Menores",textAlign: TextAlign.center,
+                            style: TextStyle(fontSize:20,
+                              fontWeight: FontWeight.bold,),),
+                          Expanded(
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: numerosMenores.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: constans.principalColor, width: 1.0),
+                                  ),
+                                  child: ListTile(
+                                    title: Text('${numerosMenores[index]}'),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 200,
+                      width: 100,
+                      child: Column(
+                        children: [
+                          Text("Mayores",textAlign: TextAlign.center,
+                            style: TextStyle(fontSize:20,
+                              fontWeight: FontWeight.bold,),),
+                          Expanded(
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: numerosMayores.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: constans.principalColor, width: 1.0),
+                                  ),
+                                  child: ListTile(
+                                    title: Text('${numerosMayores[index]}'),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -209,8 +264,17 @@ class _numerosPageState extends State<numerosPage> {
 
   void verificarNumero(int numero){
 
+    if(numerosIntroducidos == intentos-1 && igual == false){
+      setState(() {
+        rutaImage = "assets/img1.png";
+      });
+    }else if(numerosIntroducidos >= (intentos/2)-1){
+      rutaImage = "assets/img3.png";
+    }
+
     setState(() {
       numerosIntroducidos++;
+      numberController.text = "";
     });
 
     if(numero == numeroAleatorio){
@@ -218,18 +282,24 @@ class _numerosPageState extends State<numerosPage> {
         igual = true;
         menor = false;
         mayor = false;
+
+        rutaImage = "assets/img4.png";
       });
     }else if(numero < numeroAleatorio){
       setState(() {
         menor = true;
         igual = false;
         mayor = false;
+
+        numerosMenores.add(numero);
       });
     }else if(numero > numeroAleatorio){
       setState(() {
         mayor = true;
         igual = false;
         menor = false;
+
+        numerosMayores.add(numero);
       });
     }
   }
