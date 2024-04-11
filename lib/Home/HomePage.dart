@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:numero_adivina/Home/elements.dart';
+import 'package:numero_adivina/Game/dificultyGame.dart';
+import 'package:numero_adivina/elements.dart';
 import 'package:numero_adivina/constants.dart';
 
 
@@ -84,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                           showUserError = userController.text.isEmpty;
                         });
                         if (!showUserError) {
-                          print("Hola Jair");
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => dificultyGamePage(usuario: userController.text)));
                         }
                       },
                       color: constans.principalColor,

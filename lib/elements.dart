@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:numero_adivina/Game/numeroGame.dart';
 
 // ------------ Metodo para mostrar el Dialog de carga entre pantallas --------------
 
@@ -85,18 +86,16 @@ void showWarningDialog(BuildContext context, String warningText) {
 
 // ----------------------- Estilo de las Cards del menu -----------------------------
 
-Widget menuCard({title,subtitle,image,user,context}){
+Widget menuCard({title,subtitle,icon,context,color,limite,intentos}){
   return InkWell(
     onTap: () {
-      /*
-      if(title == "Tickets"){
-        Navigator.push(context, MaterialPageRoute(builder: (context) =>  TicketsPage(selectedTechnologies: [],selectedClients: [],selectedStatus: [],selectedVendors: [],alltickets: [],user : user,fechaFiltro : null,pagina: title,)));
-      }else  if(title == "My Tickets"){
-        Navigator.push(context, MaterialPageRoute(builder: (context) =>  TicketsPage(selectedTechnologies: [],selectedClients: [],selectedStatus: [],selectedVendors: [],alltickets: [],user : user,fechaFiltro : null,pagina: title,)));
-      }*/
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) => numerosPage(limite: limite, intentos: intentos)));
+      
     },
     highlightColor: Colors.black.withOpacity(0.1),
     child :  Card(
+      color: color,
       child: Padding(
         padding:   const EdgeInsets.symmetric(horizontal:20, vertical: 10),
         child: Row(
@@ -107,16 +106,16 @@ Widget menuCard({title,subtitle,image,user,context}){
               children: [
                 Text(title,
                     style: GoogleFonts.bebasNeue(
-                        fontSize: 27
+                        fontSize: 35,color: Colors.white
                     )),
                 Text(subtitle,
-                  style: const TextStyle(fontSize: 12),)
+                  style: const TextStyle(fontSize: 18,color: Colors.white),)
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                image
+                icon
               ],
             )
           ],
